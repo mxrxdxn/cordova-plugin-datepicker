@@ -209,6 +209,7 @@
 - (void)updateDatePicker:(NSMutableDictionary *)options {
   NSDateFormatter *formatter = [self createISODateFormatter: DATETIME_FORMAT timezone:[NSTimeZone defaultTimeZone]];
   NSString *mode = [options objectForKey:@"mode"];
+  NSString *style = [options objectForKey:@"style"];
   NSString *dateString = [options objectForKey:@"date"];
   BOOL allowOldDates = ([[options objectForKey:@"allowOldDates"] intValue] == 0) ? NO : YES;
   BOOL allowFutureDates = ([[options objectForKey:@"allowFutureDates"] intValue] == 0) ? NO : YES;
@@ -258,6 +259,23 @@
 
   if (locale) {
     [self.datePicker setLocale:locale];
+  }
+
+  // Style
+  // preferredDatePickerStyle is iOS 13.4 and above only
+  if (@available(iOS 13.4, *)) {
+    if ([style isEqualToString:@"compact"]) {
+      self.datePicker.preferredDatePickerStyle = UIDatePickerStyleCompact;
+    } else if ([style isEqualToString:@"inline"]) {
+      // iOS 14 only
+      if (@available(iOS 14.0, *)) {
+        self.datePicker.preferredDatePickerStyle = UIDatePickerStyleInline;
+      }
+    } else if ([style isEqualToString:@"wheels"]) {
+      self.datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    } else {
+      self.datePicker.preferredDatePickerStyle = UIDatePickerStyleAutomatic;
+    }
   }
 }
 

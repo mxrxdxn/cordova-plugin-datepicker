@@ -23,11 +23,11 @@ function DatePicker() {
  * @todo Avoid error when an Android theme is define...
  */
 DatePicker.prototype.ANDROID_THEMES = {
-  THEME_TRADITIONAL          : 1, // default
-  THEME_HOLO_DARK            : 2,
-  THEME_HOLO_LIGHT           : 3,
-  THEME_DEVICE_DEFAULT_DARK  : 4,
-  THEME_DEVICE_DEFAULT_LIGHT : 5
+    THEME_TRADITIONAL: 1, // default
+    THEME_HOLO_DARK: 2,
+    THEME_HOLO_LIGHT: 3,
+    THEME_DEVICE_DEFAULT_DARK: 4,
+    THEME_DEVICE_DEFAULT_LIGHT: 5
 };
 
 /**
@@ -35,29 +35,29 @@ DatePicker.prototype.ANDROID_THEMES = {
  */
 DatePicker.prototype.show = function(options, cb) {
     var padDate = function(date) {
-      if (date.length == 1) {
-        return ("0" + date);
-      }
-      return date;
+        if (date.length == 1) {
+            return ("0" + date);
+        }
+        return date;
     };
 
-    var formatDate = function(date){
-      // date/minDate/maxDate will be string at second time
-      if (!(date instanceof Date)) {
-        date = new Date(date)
-      }
-      date = date.getFullYear()
-            + "-"
-            + padDate(date.getMonth()+1)
-            + "-"
-            + padDate(date.getDate())
-            + "T"
-            + padDate(date.getHours())
-            + ":"
-            + padDate(date.getMinutes())
-            + ":00Z";
+    var formatDate = function(date) {
+        // date/minDate/maxDate will be string at second time
+        if (!(date instanceof Date)) {
+            date = new Date(date)
+        }
+        date = date.getFullYear() +
+            "-" +
+            padDate(date.getMonth() + 1) +
+            "-" +
+            padDate(date.getDate()) +
+            "T" +
+            padDate(date.getHours()) +
+            ":" +
+            padDate(date.getMinutes()) +
+            ":00Z";
 
-      return date
+        return date
     }
 
     if (options.date) {
@@ -93,7 +93,8 @@ DatePicker.prototype.show = function(options, cb) {
         y: '0',
         minuteInterval: 1,
         popoverArrowDirection: this._popoverArrowDirectionIntegerFromString("any"),
-        locale: "en_US"
+        locale: "en_US",
+        style: "automatic"
     };
 
     for (var key in defaults) {
@@ -103,10 +104,9 @@ DatePicker.prototype.show = function(options, cb) {
     this._callback = cb;
 
     exec(null,
-      null,
-      "DatePicker",
-      "show",
-      [defaults]
+        null,
+        "DatePicker",
+        "show", [defaults]
     );
 };
 
@@ -129,7 +129,7 @@ DatePicker.prototype._UIPopoverArrowDirection = {
     "any": 15
 };
 
-DatePicker.prototype._popoverArrowDirectionIntegerFromString = function (string) {
+DatePicker.prototype._popoverArrowDirectionIntegerFromString = function(string) {
     if (typeof this._UIPopoverArrowDirection[string] !== "undefined") {
         return this._UIPopoverArrowDirection[string];
     }
